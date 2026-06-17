@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Demo | Mobile Banking App</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #e0e0e0; }
+        .phone { max-width: 380px; margin: auto; background: #1a1a2e; min-height: 100vh; border-radius: 30px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .status-bar { background: #1a1a2e; color: white; padding: 15px; text-align: center; font-size: 14px; }
+        .balance-card { background: linear-gradient(135deg, #667eea, #764ba2); margin: 20px; padding: 25px; border-radius: 20px; color: white; }
+        .balance-amount { font-size: 2.5rem; font-weight: bold; margin: 10px 0; }
+        .actions { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin: 20px; }
+        .action { background: white; padding: 15px; border-radius: 15px; text-align: center; cursor: pointer; transition: 0.3s; }
+        .action:active { transform: scale(0.95); }
+        .transactions { background: white; margin: 20px; padding: 20px; border-radius: 20px; }
+        .transaction { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #eee; }
+        .send-money { background: white; margin: 20px; padding: 20px; border-radius: 20px; display: none; }
+        input, select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 10px; }
+        .btn-send { background: #667eea; color: white; border: none; padding: 12px; border-radius: 10px; width: 100%; cursor: pointer; }
+        .back-btn { background: #fdbb4d; color: #333; padding: 8px 16px; text-decoration: none; border-radius: 5px; display: inline-block; margin: 10px; }
+        .pin-screen { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.9); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+        .pin-box { background: white; padding: 30px; border-radius: 20px; text-align: center; width: 300px; }
+        .pin-input { font-size: 2rem; letter-spacing: 10px; text-align: center; }
+    </style>
+</head>
+<body>
+<div class="phone">
+    <div class="status-bar">📱 10:28 AM • 4G</div>
+    <div id="mainApp">
+        <div class="balance-card">
+            <div>Total Balance</div>
+            <div class="balance-amount" id="balance">$1,250.00</div>
+            <div>•••• 4532</div>
+        </div>
+        
+        <div class="actions">
+            <div class="action" onclick="showSendMoney()">📤 Send</div>
+            <div class="action" onclick="showRequest()">💰 Request</div>
+            <div class="action" onclick="showStatements()">📊 Statements</div>
+            <div class="action" onclick="showQR()">📷 QR Scan</div>
+        </div>
+        
+        <div class="transactions">
+            <h3>Recent Transactions</h3>
+            <div id="transactionsList">
+                <div class="transaction"><span>📱 Airtime Purchase</span><span style="color: red;">-$10.00</span></div>
+                <div class="transaction"><span>☕ Coffee Shop</span><span style="color: red;">-$8.50</span></div>
+                <div class="transaction"><span>💰 Salary Deposit</span><span style="color: green;">+$2,500.00</span></div>
+            </div>
+        </div>
+        
+        <div id="sendMoney" class="send-money">
+            <h3>Send Money</h3>
+            <input type="text" id="recipient" placeholder="Phone number or email">
+            <input type="number" id="amount" placeholder="Amount">
+            <select id="paymentMethod">
+                <option>From Checking Account</option>
+                <option>From Savings Account</option>
+            </select>
+            <button class="btn-send" onclick="sendMoney()">Send Money →</button>
+            <button class="back-btn" onclick="hideSendMoney()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    let balance = 1250.00;
+    
+    function showSendMoney() {
+        document.getElementById('sendMoney').style.display = 'block';
+    }
+    
+    function hideSendMoney() {
+        document.getElementById('sendMoney').style.display = 'none';
+    }
+    
+    function sendMoney() {
+        const amount = parseFloat(document.getElementById('amount').value);
+        const recipient = document.getElementById('recipient').value;
+        
+        if(!recipient) {
+            alert('Please enter recipient info');
+            return;
+        }
+        if(!amount || amount <= 0) {
+            alert('Please enter a valid amount');
+            return;
+        }
+        if(amount > balance) {
+            alert('Insufficient balance!');
+            return;
+        }
+        
+        balance -= amount;
+        document.getElementById('balance').innerText = `$${balance.toFixed(2)}`;
+        
+        // Add transaction
+        const transactionsDiv = document.getElementById('transactionsList');
+        const newTrans = document.createElement('div');
+        newTrans.className = 'transaction';
+        newTrans.innerHTML = `<span>📤 Sent to ${recipient}</span><span style="color: red;">-$${amount.toFixed(2)}</span>`;
+        transactionsDiv.insertBefore(newTrans, transactionsDiv.firstChild);
+        
+        alert(`✅ $${amount} sent to ${recipient} successfully!`);
+        hideSendMoney();
+        document.getElementById('amount').value = '';
+        document.getElementById('recipient').value = '';
+    }
+    
+    function showRequest() {
+        alert('💰 Request Money Feature\nShare your payment link with friends');
+    }
+    
+    function showStatements() {
+        alert('📊 Monthly Statement\nDownload your account statement');
+    }
+    
+    function showQR() {
+        alert('📷 QR Code Scanner\nScan to pay at stores');
+    }
+</script>
+</body>
+</html>

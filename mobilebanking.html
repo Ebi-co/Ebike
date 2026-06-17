@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Banking App | Project Details</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        header { background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb4d); color: white; padding: 1rem 0; position: sticky; top: 0; z-index: 100; }
+        .container { max-width: 1200px; margin: auto; padding: 0 20px; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+        .logo { font-size: 1.8rem; font-weight: bold; }
+        .logo span { color: #fdbb4d; }
+        .back-btn { background: #fdbb4d; color: #333; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; }
+        .project-hero { background: linear-gradient(135deg, #11998e, #38ef7d); color: white; padding: 60px 0; text-align: center; }
+        .project-hero h1 { font-size: 3rem; margin-bottom: 1rem; }
+        .section { padding: 60px 0; }
+        .section-title { text-align: center; font-size: 2rem; margin-bottom: 40px; color: #1a2a6c; }
+        .features-grid, .tech-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 30px; }
+        .feature-card, .tech-card { background: #f9f9f9; padding: 25px; border-radius: 10px; text-align: center; }
+        .feature-icon { font-size: 2.5rem; margin-bottom: 15px; }
+        .demo-section { background: #f0f0f0; border-radius: 10px; padding: 30px; margin-top: 30px; }
+        .btn-demo { display: inline-block; background: #fdbb4d; color: #333; padding: 12px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; margin: 10px; }
+        footer { background: #222; color: #ccc; text-align: center; padding: 30px 0; margin-top: 60px; }
+        @media (max-width: 768px) { .project-hero h1 { font-size: 2rem; } }
+    </style>
+</head>
+<body>
+<header>
+    <div class="container nav-container">
+        <div class="logo">My<span>Portfolio</span></div>
+        <a href="index.html" class="back-btn">← Back to Home</a>
+    </div>
+</header>
+
+<section class="project-hero">
+    <div class="container">
+        <div style="font-size: 5rem;">📱</div>
+        <h1>Mobile Banking App</h1>
+        <p>Secure mobile banking with real-time transactions</p>
+    </div>
+</section>
+
+<div class="container">
+    <section class="section">
+        <h2 class="section-title">Project Overview</h2>
+        <p style="text-align: center; max-width: 800px; margin: auto;">A comprehensive mobile banking solution allowing users to check balances, transfer money, pay bills, and manage accounts securely from their smartphones.</p>
+        
+        <div class="features-grid">
+            <div class="feature-card"><div class="feature-icon">💰</div><h3>Account Management</h3><p>View balances, statements, transaction history</p></div>
+            <div class="feature-card"><div class="feature-icon">🔄</div><h3>Money Transfer</h3><p>Bank transfers, mobile money, international</p></div>
+            <div class="feature-card"><div class="feature-icon">📱</div><h3>Mobile Recharge</h3><p>Airtime & data purchase for all networks</p></div>
+            <div class="feature-card"><div class="feature-icon">🔐</div><h3>Biometric Login</h3><p>Fingerprint & face recognition security</p></div>
+            <div class="feature-card"><div class="feature-icon">📷</div><h3>Check Deposit</h3><p>Remote check deposit via camera</p></div>
+            <div class="feature-card"><div class="feature-icon">🔔</div><h3>Push Notifications</h3><p>Real-time transaction alerts</p></div>
+        </div>
+    </section>
+
+    <section class="section" style="background: #f9f9f9; border-radius: 10px;">
+        <h2 class="section-title">Technologies Used</h2>
+        <div class="tech-grid">
+            <div class="tech-card"><strong>Frontend:</strong> React Native, Expo</div>
+            <div class="tech-card"><strong>Backend:</strong> Node.js, Express</div>
+            <div class="tech-card"><strong>Database:</strong> PostgreSQL, Firebase</div>
+            <div class="tech-card"><strong>Security:</strong> JWT, OAuth 2.0, AES-256</div>
+            <div class="tech-card"><strong>APIs:</strong> SMS Gateway, Payment Gateway</div>
+            <div class="tech-card"><strong>Analytics:</strong> Mixpanel, Sentry</div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">Live Demo</h2>
+        <div class="demo-section">
+            <h3 style="text-align: center; margin-bottom: 20px;">Try the Demo</h3>
+            <div style="text-align: center;">
+                <p><strong>Demo Credentials:</strong></p>
+                <p>Phone: +251 920 410 264 | PIN:4321</p>
+                <a href="demo-banking.html" class="btn-demo">📱 Download APK</a>
+                <a href="#" class="btn-demo">💾 Source Code</a>
+            </div>
+        </div>
+    </section>
+</div>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2026 Ebisa K - Mobile Banking App Project</p>
+    </div>
+</footer>
+</body>
+</html>

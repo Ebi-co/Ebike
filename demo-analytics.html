@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Demo | Analytics Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #0a0e27; color: white; }
+        header { background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb4d); padding: 1rem; }
+        .container { max-width: 1200px; margin: auto; padding: 20px; }
+        .back-btn { background: #fdbb4d; color: #333; padding: 8px 16px; text-decoration: none; border-radius: 5px; display: inline-block; margin-bottom: 20px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 20px 0; }
+        .stat-card { background: linear-gradient(135deg, #1e2746, #0f1429); padding: 20px; border-radius: 15px; text-align: center; }
+        .stat-value { font-size: 2rem; font-weight: bold; margin: 10px 0; }
+        .chart-container { background: #1e2746; border-radius: 15px; padding: 20px; margin: 20px 0; }
+        .bar { background: #fdbb4d; height: 30px; margin: 10px 0; border-radius: 5px; transition: width 0.5s; }
+        .controls { display: flex; gap: 10px; margin: 20px 0; flex-wrap: wrap; }
+        button { background: #fdbb4d; color: #333; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
+        .sales-table { width: 100%; border-collapse: collapse; }
+        .sales-table th, .sales-table td { padding: 12px; text-align: left; border-bottom: 1px solid #333; }
+        .positive { color: #4caf50; }
+        .negative { color: #f44336; }
+    </style>
+</head>
+<body>
+<header>
+    <div class="container">
+        <h1>📊 Analytics Dashboard Demo</h1>
+        <a href="analytics.html" class="back-btn">← Back to Project</a>
+    </div>
+</header>
+
+<div class="container">
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div>💰 Total Revenue</div>
+            <div class="stat-value" id="revenue">$124,500</div>
+            <div class="positive">↑ 12.5%</div>
+        </div>
+        <div class="stat-card">
+            <div>👥 Active Users</div>
+            <div class="stat-value" id="users">8,942</div>
+            <div class="positive">↑ 5.2%</div>
+        </div>
+        <div class="stat-card">
+            <div>📈 Conversion Rate</div>
+            <div class="stat-value" id="conversion">3.24%</div>
+            <div class="positive">↑ 0.8%</div>
+        </div>
+        <div class="stat-card">
+            <div>⭐ Avg. Session</div>
+            <div class="stat-value" id="session">4:32</div>
+            <div class="negative">↓ 0.3%</div>
+        </div>
+    </div>
+    
+    <div class="controls">
+        <button onclick="updateData('daily')">Daily</button>
+        <button onclick="updateData('weekly')">Weekly</button>
+        <button onclick="updateData('monthly')">Monthly</button>
+        <button onclick="exportData()">📥 Export Report</button>
+    </div>
+    
+    <div class="chart-container">
+        <h3>📈 Sales Performance</h3>
+        <div id="chartBars">
+            <div>Mon <div class="bar" style="width: 65%"></div> $6,500</div>
+            <div>Tue <div class="bar" style="width: 72%"></div> $7,200</div>
+            <div>Wed <div class="bar" style="width: 80%"></div> $8,000</div>
+            <div>Thu <div class="bar" style="width: 78%"></div> $7,800</div>
+            <div>Fri <div class="bar" style="width: 85%"></div> $8,500</div>
+            <div>Sat <div class="bar" style="width: 92%"></div> $9,200</div>
+            <div>Sun <div class="bar" style="width: 88%"></div> $8,800</div>
+        </div>
+    </div>
+    
+    <div class="chart-container">
+        <h3>📋 Recent Orders</h3>
+        <table class="sales-table">
+            <thead><tr><th>Order ID</th><th>Customer</th><th>Amount</th><th>Status</th></tr></thead>
+            <tbody id="ordersTable">
+                <tr><td>#1001</td><td>John Doe</td><td>$245.00</td><td style="color: #4caf50;">Completed</td></tr>
+                <tr><td>#1002</td><td>Jane Smith</td><td>$189.99</td><td style="color: #4caf50;">Completed</td></tr>
+                <tr><td>#1003</td><td>Mike Johnson</td><td>$67.50</td><td style="color: #ff9800;">Processing</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    let currentPeriod = 'daily';
+    
+    const data = {
+        daily: { revenue: 124500, users: 8942, conversion: 3.24, session: '4:32', sales: [6500,7200,8000,7800,8500,9200,8800] },
+        weekly: { revenue: 35200, users: 12450, conversion: 2.89, session: '4:15', sales: [28500,31200,29800,33500,35200] },
+        monthly: { revenue: 498000, users: 35120, conversion: 3.02, session: '4:28', sales: [124000,132000,128000,135000,142000,148000,152000] }
+    };
+    
+    function updateData(period) {
+        currentPeriod = period;
+        const d = data[period];
+        document.getElementById('revenue').innerText = `$${d.revenue.toLocaleString()}`;
+        document.getElementById('users').innerText = d.users.toLocaleString();
+        document.getElementById('conversion').innerText = `${d.conversion}%`;
+        document.getElementById('session').innerText = d.session;
+        
+        // Update chart
+        const chartDiv = document.getElementById('chartBars');
+        const days = period === 'daily' ? ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'] :
+                    period === 'weekly' ? ['Week 1','Week 2','Week 3','Week 4'] :
+                    ['Jan','Feb','Mar','Apr','May','Jun','Jul'];
+        
+        chartDiv.innerHTML = d.sales.map((sale, i) => {
+            const percent = (sale / Math.max(...d.sales)) * 100;
+            return `<div>${days[i]} <div class="bar" style="width: ${percent}%"></div> $${sale.toLocaleString()}</div>`;
+        }).join('');
+    }
+    
+    function exportData() {
+        const report = {
+            period: currentPeriod,
+            data: data[currentPeriod],
+            exportDate: new Date().toISOString(),
+            reportType: 'Analytics Dashboard Export'
+        };
+        const blob = new Blob([JSON.stringify(report, null, 2)], {type: 'application/json'});
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `analytics-report-${currentPeriod}.json`;
+        a.click();
+        alert('Report exported successfully!');
+    }
+    
+    // Add random new order every 30 seconds for demo
+    setInterval(() => {
+        const orders = [
+            { id: `#${Math.floor(Math.random() * 9000 + 2000)}`, customer: ['Alice','Bob','Carol','David','Emma'][Math.floor(Math.random()*5)], amount: Math.floor(Math.random() * 300 + 20) }
+        ];
+        const table = document.getElementById('ordersTable');
+        orders.forEach(order => {
+            const row = table.insertRow(0);
+            row.innerHTML = `<td>${order.id}</td><td>${order.customer}</td><td>$${order.amount}.00</td><td style="color: #4caf50;">Completed</td>`;
+        });
+        if(table.rows.length > 10) table.deleteRow(10);
+    }, 30000);
+</script>
+</body>
+</html>

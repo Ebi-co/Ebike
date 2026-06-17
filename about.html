@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About & Branches | Ebisa K Portfolio</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        header { background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb4d); color: white; padding: 1rem 0; position: sticky; top: 0; z-index: 100; }
+        .container { max-width: 1200px; margin: auto; padding: 0 20px; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+        .logo { font-size: 1.8rem; font-weight: bold; }
+        .logo span { color: #fdbb4d; }
+        .back-btn { background: #fdbb4d; color: #333; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; }
+        .page-hero { background: linear-gradient(135deg, #11998e, #38ef7d); color: white; padding: 60px 0; text-align: center; }
+        .page-hero h1 { font-size: 3rem; margin-bottom: 1rem; }
+        .section { padding: 60px 0; }
+        .section-title { text-align: center; font-size: 2rem; margin-bottom: 40px; color: #1a2a6c; position: relative; }
+        .section-title::after { content: ''; display: block; width: 60px; height: 3px; background: #fdbb4d; margin: 10px auto; }
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        .mission-vision { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 40px 0; }
+        .mv-card { background: #f9f9f9; padding: 30px; border-radius: 10px; text-align: center; }
+        .map-container { margin: 40px 0; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        #map { height: 400px; width: 100%; }
+        .branches-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 30px; }
+        .branch-card { background: #f9f9f9; padding: 20px; border-radius: 10px; border-left: 4px solid #fdbb4d; }
+        .branch-card h3 { color: #1a2a6c; margin-bottom: 10px; }
+        .branch-card p { margin: 5px 0; color: #666; }
+        
+        /* Improved Team Section Styles */
+        .team-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+            gap: 40px; 
+            margin-top: 40px; 
+        }
+        .team-member { 
+            text-align: center; 
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        .team-img { 
+            width: 150px; 
+            height: 150px; 
+            border-radius: 50%; 
+            object-fit: cover; 
+            margin: 0 auto 15px; 
+            display: block; 
+            border: 3px solid #fdbb4d;
+            transition: transform 0.3s;
+        }
+        .team-member:hover .team-img {
+            transform: scale(1.05);
+        }
+        .team-member h3 { 
+            color: #1a2a6c; 
+            margin: 15px 0 5px;
+            font-size: 1.3rem;
+        }
+        .team-title {
+            color: #b21f1f;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .team-bio {
+            color: #666;
+            font-size: 0.9rem;
+            margin: 10px 0;
+        }
+        .social-icons {
+            margin-top: 15px;
+        }
+        .social-icons a {
+            display: inline-block;
+            margin: 0 5px;
+            color: #1a2a6c;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+        .social-icons a:hover {
+            color: #fdbb4d;
+        }
+        
+        footer { background: #222; color: #ccc; text-align: center; padding: 30px 0; margin-top: 60px; }
+        @media (max-width: 768px) { 
+            .page-hero h1 { font-size: 2rem; } 
+            .about-grid { grid-template-columns: 1fr; } 
+            .mission-vision { grid-template-columns: 1fr; }
+            .team-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+    <!-- Google Maps API - Replace YOUR_API_KEY_HERE -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY_HERE&callback=initMap" async defer></script>
+    <script>
+        function initMap() {
+            const branches = [
+                { lat: 9.02497, lng: 38.74689, name: "Head Office - Addis Ababa", address: "Bole Road, Addis Ababa, Ethiopia" },
+                { lat: 9.01000, lng: 38.76000, name: "Branch 1 - Kazanchis", address: "Kazanchis Business District" },
+                { lat: 9.03000, lng: 38.74000, name: "Branch 2 - Mexico", address: "Mexico Square Area" },
+                { lat: 8.98000, lng: 38.77000, name: "Branch 3 - Bole Medhanealem", address: "Near Medhanealem Church" },
+                { lat: 9.05000, lng: 38.75000, name: "Branch 4 - CMC", address: "CMC Road, Addis Ababa" }
+            ];
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 12,
+                center: { lat: 9.02497, lng: 38.74689 }
+            });
+            branches.forEach(branch => {
+                const marker = new google.maps.Marker({
+                    position: { lat: branch.lat, lng: branch.lng },
+                    map: map,
+                    title: branch.name,
+                    animation: google.maps.Animation.DROP
+                });
+                const infoWindow = new google.maps.InfoWindow({
+                    content: `<div style="padding: 10px;"><strong>${branch.name}</strong><br>${branch.address}</div>`
+                });
+                marker.addListener("click", () => infoWindow.open(map, marker));
+            });
+        }
+    </script>
+</head>
+<body>
+<header>
+    <div class="container nav-container">
+        <div class="logo">My<span>Portfolio</span></div>
+        <a href="index.html" class="back-btn">← Back to Home</a>
+    </div>
+</header>
+
+<section class="page-hero">
+    <div class="container">
+        <div style="font-size: 4rem;">📍</div>
+        <h1>About My Company</h1>
+        <p>Innovative solutions delivered with excellence since 2020</p>
+    </div>
+</section>
+
+<div class="container">
+    <!-- Company Info -->
+    <section class="section">
+        <div class="about-grid">
+            <div>
+                <h2 style="color: #1a2a6c; margin-bottom: 20px;">Who We Are</h2>
+                <p>Founded in 2020, TechSolutions has grown from a small freelance operation to a full-service digital agency serving clients across Ethiopia and internationally. We specialize in creating cutting-edge web and mobile solutions that drive business growth.</p>
+                <p style="margin-top: 15px;">Our team of passionate developers, designers, and strategists work together to deliver exceptional results for our clients.</p>
+                <p style="margin-top: 15px;"><strong>📅 Founded:</strong> 2020<br><strong>👥 Team Size:</strong> 15+ professionals<br><strong>🌍 Clients:</strong> 100+ satisfied clients worldwide</p>
+            </div>
+            <div style="background: #f9f9f9; padding: 30px; border-radius: 10px; text-align: center;">
+                <div style="font-size: 4rem;">⭐</div>
+                <h3>Our Rating</h3>
+                <div style="font-size: 2rem; color: #fdbb4d;">★★★★★</div>
+                <p>4.9/5 from 150+ reviews</p>
+            </div>
+        </div>
+
+        <div class="mission-vision">
+            <div class="mv-card"><div style="font-size: 2.5rem;">🎯</div><h3>Our Mission</h3><p>To empower businesses with innovative digital solutions that drive growth.</p></div>
+            <div class="mv-card"><div style="font-size: 2.5rem;">👁️</div><h3>Our Vision</h3><p>To become Ethiopia's leading digital transformation partner across Africa.</p></div>
+        </div>
+    </section>
+
+    <!-- Team Section with Images -->
+    <section class="section" style="background: #f9f9f9; border-radius: 10px;">
+        <h2 class="section-title">👥 Meet Our Leadership Team</h2>
+        <div class="team-grid">
+            <!-- Team Member 1 - Ebisa -->
+            <div class="team-member">
+                <img src="Images/ebisa.jpg" alt="Ebisa Kalbesa" class="team-img" onerror="this.src='https://via.placeholder.com/150x150?text=EK'">
+                <h3>Ebisa Kalbesa</h3>
+                <div class="team-title">Founder & CEO</div>
+                <div class="team-bio">10+ years experience in web development and business strategy</div>
+                <div class="social-icons">
+                    <a href="https://t.me/ebii2041">📱</a>
+                    <a href="#">🔗</a>
+                    <a href="#">💼</a>
+                </div>
+            </div>
+            
+            <!-- Team Member 2 - Sarah -->
+            <div class="team-member">
+                <img src="Images/Yosan.jpg" alt="Yosan Rawane" class="team-img" onerror="this.src='https://via.placeholder.com/150x150?text=SJ'">
+                <h3>Yosan Rawane</h3>
+                <div class="team-title">Technical Director</div>
+                <div class="team-bio">Full Stack expert with 8+ years leading dev teams</div>
+                <div class="social-icons">
+                    <a href="#">🔗</a>
+                    <a href="#">💼</a>
+                </div>
+            </div>
+            
+            <!-- Team Member 3 - Michael -->
+            <div class="team-member">
+                <img src="Images/Oftanenus.jpg" alt="Michael T." class="team-img" onerror="this.src='https://via.placeholder.com/150x150?text=MT'">
+                <h3>Oftanenus Wakjira</h3>
+                <div class="team-title">Creative Director</div>
+                <div class="team-bio">UI/UX specialist with award-winning design portfolio</div>
+                <div class="social-icons">
+                    <a href="#">🎨</a>
+                    <a href="#">🔗</a>
+                </div>
+            </div>
+            
+            <!-- Team Member 4 - Ruth -->
+            <div class="team-member">
+                <img src="Images/ruth.jpg" alt="Ruth Desta" class="team-img" onerror="this.src='https://via.placeholder.com/150x150?text=RD'">
+                <h3>Ruth Desta</h3>
+                <div class="team-title">Project Manager</div>
+                <div class="team-bio">Agile certified, delivering projects on time and budget</div>
+                <div class="social-icons">
+                    <a href="#">📋</a>
+                    <a href="#">🔗</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Google Map Section -->
+    <section class="section" style="background: #f9f9f9; border-radius: 10px;">
+        <h2 class="section-title">📍 Our Branch Locations</h2>
+        <div class="map-container">
+            <div id="map"></div>
+        </div>
+        
+        <div class="branches-grid">
+            <div class="branch-card">
+                <h3>🏢 Head Office</h3>
+                <p>Bole Road, Addis Ababa</p>
+                <p>📞 +251 920 410 264</p>
+                <p>🕒 Mon-Fri: 9AM - 6PM</p>
+            </div>
+            <div class="branch-card">
+                <h3>📍 Nekemte Branch</h3>
+                <p>Around ijo hotel, District</p>
+                <p>📞 +251 920 410 264</p>
+                <p>🕒 Mon-Fri: 9AM - 6PM</p>
+            </div>
+            <div class="branch-card">
+                <h3>📍 Bedele Branch</h3>
+                <p>Aba Boku Area</p>
+                <p>📞 +251 920 410 264</p>
+                <p>🕒 Mon-Sat: 9AM - 7PM</p>
+            </div>
+            <div class="branch-card">
+                <h3>📍 Jimma</h3>
+                <p>Near Ferenj Arada</p>
+                <p>📞 +251 920 410 264</p>
+                <p>🕒 Mon-Fri: 9AM - 6PM</p>
+            </div>
+            <div class="branch-card">
+                <h3>📍 Jimma</h3>
+                <p>Ajip, around Jimma University</p>
+                <p>📞 +251 920 410 264</p>
+                <p>🕒 Mon-Sat: 10AM - 8PM</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<footer>
+    <div class="container">
+        <p>copyright©2026 EebbiKe - TechSolutions. All rights reserved.</p>
+        <p>📍 5 branch locations across Ethiopia | Serving clients worldwide</p>
+    </div>
+</footer>
+
+<script>
+    if (typeof google === 'undefined') {
+        document.getElementById('map').innerHTML = '<div style="height:400px; background:#e0e0e0; display:flex; align-items:center; justify-content:center;"><div style="text-align:center;">🗺️ Google Map<br><small>Add your API key to enable map</small><br><br><strong>5 Branch Locations:</strong><br>• Head Office - Bole Road<br>• Kazanchis Branch<br>• Mexico Branch<br>• Bole Medhanealem<br>• CMC Branch</div></div>';
+    }
+</script>
+</body>
+</html>

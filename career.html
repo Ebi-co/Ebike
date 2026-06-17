@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career | Ebisa K Portfolio</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        header { background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb4d); color: white; padding: 1rem 0; position: sticky; top: 0; z-index: 100; }
+        .container { max-width: 1200px; margin: auto; padding: 0 20px; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+        .logo { font-size: 1.8rem; font-weight: bold; }
+        .logo span { color: #fdbb4d; }
+        .back-btn { background: #fdbb4d; color: #333; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; }
+        .page-hero { background: linear-gradient(135deg, #434343, #000000); color: white; padding: 60px 0; text-align: center; }
+        .page-hero h1 { font-size: 3rem; margin-bottom: 1rem; }
+        .section { padding: 60px 0; }
+        .section-title { text-align: center; font-size: 2rem; margin-bottom: 40px; color: #1a2a6c; position: relative; }
+        .section-title::after { content: ''; display: block; width: 60px; height: 3px; background: #fdbb4d; margin: 10px auto; }
+        .jobs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
+        .job-card { background: white; border-radius: 10px; padding: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: 0.3s; border-left: 4px solid #fdbb4d; }
+        .job-card:hover { transform: translateX(5px); }
+        .job-title { font-size: 1.5rem; color: #1a2a6c; margin-bottom: 10px; }
+        .job-meta { color: #b21f1f; margin-bottom: 15px; font-weight: bold; }
+        .job-description { margin-bottom: 20px; color: #666; }
+        .requirements { margin-bottom: 20px; padding-left: 20px; }
+        .requirements li { margin-bottom: 5px; }
+        .btn-apply { background: #1a2a6c; color: white; padding: 10px 25px; text-decoration: none; border-radius: 5px; display: inline-block; transition: 0.3s; }
+        .btn-apply:hover { background: #fdbb4d; color: #333; }
+        .why-work { background: #f9f9f9; border-radius: 10px; padding: 40px; text-align: center; margin-top: 40px; }
+        .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-top: 30px; }
+        .benefit { text-align: center; }
+        .benefit-icon { font-size: 2.5rem; margin-bottom: 15px; }
+        .application-form { background: #1a2a6c; color: white; padding: 50px; border-radius: 10px; margin-top: 60px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px; border: none; border-radius: 5px; }
+        .btn-submit { background: #fdbb4d; color: #333; padding: 12px 30px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 1rem; }
+        footer { background: #222; color: #ccc; text-align: center; padding: 30px 0; margin-top: 60px; }
+        @media (max-width: 768px) { .page-hero h1 { font-size: 2rem; } .application-form { padding: 30px; } }
+    </style>
+</head>
+<body>
+<header>
+    <div class="container nav-container">
+        <div class="logo">My<span>Portfolio</span></div>
+        <a href="index.html" class="back-btn">← Back to Home</a>
+    </div>
+</header>
+
+<section class="page-hero">
+    <div class="container">
+        <div style="font-size: 4rem;">💼</div>
+        <h1>Join My Team</h1>
+        <p>Build your career with exciting opportunities</p>
+    </div>
+</section>
+
+<div class="container">
+    <section class="section">
+        <h2 class="section-title">Open Positions</h2>
+        <div class="jobs-grid">
+            <div class="job-card">
+                <h3 class="job-title">Senior Full Stack Developer</h3>
+                <div class="job-meta">📍 Remote | 💰 $60k-80k/year | ⏰ Full-time</div>
+                <p class="job-description">Lead development of complex web applications and mentor junior developers.</p>
+                <ul class="requirements">
+                    <li>✓ 5+ years experience with React/Node.js</li>
+                    <li>✓ Strong database knowledge (PostgreSQL, MongoDB)</li>
+                    <li>✓ Experience with cloud services (AWS/Azure)</li>
+                </ul>
+                <a href="#apply" class="btn-apply">Apply Now →</a>
+            </div>
+            <div class="job-card">
+                <h3 class="job-title">UI/UX Designer</h3>
+                <div class="job-meta">📍 Remote | 💰 $45k-60k/year | ⏰ Full-time</div>
+                <p class="job-description">Create beautiful, intuitive interfaces for web and mobile applications.</p>
+                <ul class="requirements">
+                    <li>✓ 3+ years experience with Figma/Sketch</li>
+                    <li>✓ Strong portfolio demonstrating design thinking</li>
+                    <li>✓ Experience with user research and testing</li>
+                </ul>
+                <a href="#apply" class="btn-apply">Apply Now →</a>
+            </div>
+            <div class="job-card">
+                <h3 class="job-title">Mobile App Developer</h3>
+                <div class="job-meta">📍 Remote | 💰 $50k-70k/year | ⏰ Full-time</div>
+                <p class="job-description">Build cross-platform mobile apps using React Native or Flutter.</p>
+                <ul class="requirements">
+                    <li>✓ 3+ years mobile development experience</li>
+                    <li>✓ Published apps on iOS/Android stores</li>
+                    <li>✓ Knowledge of REST APIs and offline storage</li>
+                </ul>
+                <a href="#apply" class="btn-apply">Apply Now →</a>
+            </div>
+            <div class="job-card">
+                <h3 class="job-title">DevOps Engineer</h3>
+                <div class="job-meta">📍 Remote | 💰 $65k-85k/year | ⏰ Full-time</div>
+                <p class="job-description">Manage infrastructure, CI/CD pipelines, and cloud deployments.</p>
+                <ul class="requirements">
+                    <li>✓ 4+ years DevOps experience</li>
+                    <li>✓ Expertise in Docker, Kubernetes, Jenkins</li>
+                    <li>✓ Experience with AWS/GCP/Azure</li>
+                </ul>
+                <a href="#apply" class="btn-apply">Apply Now →</a>
+            </div>
+        </div>
+
+        <div class="why-work">
+            <h3>✨ Why Work With Me?</h3>
+            <div class="benefits-grid">
+                <div class="benefit"><div class="benefit-icon">🏠</div><h4>100% Remote</h4><p>Work from anywhere</p></div>
+                <div class="benefit"><div class="benefit-icon">⏰</div><h4>Flexible Hours</h4><p>Results-driven culture</p></div>
+                <div class="benefit"><div class="benefit-icon">📚</div><h4>Learning Budget</h4><p>$1000/year for courses</p></div>
+                <div class="benefit"><div class="benefit-icon">🏥</div><h4>Health Insurance</h4><p>Comprehensive coverage</p></div>
+            </div>
+        </div>
+
+        <div id="apply" class="application-form">
+            <h3 style="text-align: center; margin-bottom: 30px;">📝 Apply Now</h3>
+            <form>
+                <div class="form-group">
+                    <label>Full Name *</label>
+                    <input type="text" required>
+                </div>
+                <div class="form-group">
+                    <label>Email Address *</label>
+                    <input type="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel">
+                </div>
+                <div class="form-group">
+                    <label>Position Applying For *</label>
+                    <select required>
+                        <option>Select a position</option>
+                        <option>Senior Full Stack Developer</option>
+                        <option>UI/UX Designer</option>
+                        <option>Mobile App Developer</option>
+                        <option>DevOps Engineer</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>LinkedIn/Portfolio URL</label>
+                    <input type="url">
+                </div>
+                <div class="form-group">
+                    <label>Cover Letter / Why are you a good fit? *</label>
+                    <textarea rows="5" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Upload Resume (PDF)</label>
+                    <input type="file" accept=".pdf">
+                </div>
+                <div style="text-align: center;">
+                    <button type="submit" class="btn-submit">Submit Application →</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2026 Ebisa K - Career Opportunities</p>
+    </div>
+</footer>
+</body>
+</html>

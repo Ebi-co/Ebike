@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Demo | Portfolio Website Builder</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f5f5f5; }
+        header { background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb4d); color: white; padding: 1rem; }
+        .container { max-width: 1200px; margin: auto; padding: 20px; }
+        .back-btn { background: #fdbb4d; color: #333; padding: 8px 16px; text-decoration: none; border-radius: 5px; display: inline-block; margin-bottom: 20px; }
+        .demo-portfolio { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        .portfolio-header { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 40px; text-align: center; }
+        .portfolio-avatar { width: 120px; height: 120px; border-radius: 50%; background: white; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 3rem; }
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; padding: 30px; }
+        .portfolio-item { background: #f9f9f9; padding: 20px; border-radius: 10px; text-align: center; cursor: pointer; transition: 0.3s; }
+        .portfolio-item:hover { transform: translateY(-5px); background: #fdbb4d; color: white; }
+        .editor-panel { background: #1e2746; color: white; padding: 20px; border-radius: 10px; margin-top: 30px; }
+        input, textarea { width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: none; }
+        .btn-update { background: #fdbb4d; color: #333; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+<header>
+    <div class="container">
+        <h1>🎨 Portfolio Builder Demo</h1>
+        <a href="portfolio-website.html" class="back-btn">← Back to Project</a>
+    </div>
+</header>
+
+<div class="container">
+    <div class="demo-portfolio" id="portfolio">
+        <div class="portfolio-header">
+            <div class="portfolio-avatar" id="avatar">👨‍🎨</div>
+            <h2 id="portfolioName">Ebisa K Hordofa</h2>
+            <p id="portfolioTitle">Full Stack Developer & Creative Designer</p>
+        </div>
+        <div class="portfolio-grid" id="portfolioItems">
+            <div class="portfolio-item">✨ Web Design</div>
+            <div class="portfolio-item">🎨 UI/UX</div>
+            <div class="portfolio-item">📱 Mobile Apps</div>
+            <div class="portfolio-item">🚀 Branding</div>
+        </div>
+    </div>
+    
+    <div class="editor-panel">
+        <h3>✏️ Customize Your Portfolio</h3>
+        <label>Your Name:</label>
+        <input type="text" id="editName" value="Ebisa K Hordofa">
+        <label>Your Title:</label>
+        <input type="text" id="editTitle" value="Full Stack Developer & Creative Designer">
+        <label>Avatar Emoji:</label>
+        <input type="text" id="editAvatar" value="👨‍🎨">
+        <label>Skills (comma separated):</label>
+        <textarea id="editSkills" rows="3">Web Design, UI/UX, Mobile Apps, Branding</textarea>
+        <button class="btn-update" onclick="updatePortfolio()">🎨 Update Portfolio →</button>
+        <button class="btn-update" onclick="downloadPortfolio()">💾 Save as HTML</button>
+    </div>
+</div>
+
+<script>
+    function updatePortfolio() {
+        document.getElementById('portfolioName').innerText = document.getElementById('editName').value;
+        document.getElementById('portfolioTitle').innerText = document.getElementById('editTitle').value;
+        document.getElementById('avatar').innerText = document.getElementById('editAvatar').value;
+        
+        const skills = document.getElementById('editSkills').value.split(',').map(s => s.trim());
+        const grid = document.getElementById('portfolioItems');
+        grid.innerHTML = skills.map(skill => `<div class="portfolio-item">✨ ${skill}</div>`).join('');
+        
+        alert('Portfolio updated!');
+    }
+    
+    function downloadPortfolio() {
+        const name = document.getElementById('editName').value;
+        const title = document.getElementById('editTitle').value;
+        const avatar = document.getElementById('editAvatar').value;
+        const skills = document.getElementById('editSkills').value.split(',').map(s => s.trim());
+        
+        const html = `<!DOCTYPE html>
+<html>
+<head><title>${name}'s Portfolio</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: Arial; background: #f5f5f5; }
+.header { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 60px 20px; text-align: center; }
+.avatar { font-size: 5rem; margin-bottom: 20px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; padding: 40px; max-width: 1000px; margin: auto; }
+.item { background: white; padding: 30px; border-radius: 10px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+</style>
+</head>
+<body>
+<div class="header">
+    <div class="avatar">${avatar}</div>
+    <h1>${name}</h1>
+    <p>${title}</p>
+</div>
+<div class="grid">
+    ${skills.map(s => `<div class="item">✨ ${s}</div>`).join('')}
+</div>
+</body>
+</html>`;
+        
+        const blob = new Blob([html], {type: 'text/html'});
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'my-portfolio.html';
+        a.click();
+        alert('Portfolio downloaded! Open the file to see your portfolio.');
+    }
+</script>
+</body>
+</html>
